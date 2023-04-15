@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:rango_mino/src/controllers/firestore.dart';
+import 'package:rango_mino/src/models/consumers.dart';
 import 'package:rango_mino/src/views/liste_personnes.dart';
 import 'package:rango_mino/core/data.dart';
 
@@ -97,7 +97,7 @@ class MyDrawerState extends State<MyDrawer>{
             actions: [
               TextButton(onPressed: ()=> Navigator.pop(context), child: const Text("Annuler")),
               TextButton(onPressed: (){
-                FirestoreHelper().stockageImage(dossier: "AVATARS", dossierPersonnel: AppData.account.id, nameImage: nameImage!, bytesImage: dataImage!).then((urlBaseDeDonne) {
+                Consumer.uploadPicture(dossier: "AVATARS", dossierPersonnel: AppData.account.id, nameImage: nameImage!, bytesImage: dataImage!).then((urlBaseDeDonne) {
                   urlImage = urlBaseDeDonne;
                   //récupérer l'url
                   Map<String,dynamic> data = {
@@ -107,7 +107,7 @@ class MyDrawerState extends State<MyDrawer>{
                     AppData.account.picture = urlImage;
                   });
                   //mettre à jour les infos utilisateurs
-                  FirestoreHelper().updateUser(AppData.account.id, data);
+                  Consumer.updateConsumer(AppData.account.id, data);
                   //fermer le nouveau pop
                   Navigator.pop(context);
                 });

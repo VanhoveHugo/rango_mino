@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rango_mino/firebase_options.dart';
-import 'package:rango_mino/src/controllers/firestore.dart';
 import 'package:rango_mino/core/data.dart';
+import 'package:rango_mino/src/models/consumers.dart';
 import 'package:rango_mino/src/views/dashboard.dart';
 
 void main() async {
@@ -173,7 +173,7 @@ class _MyHomePageState extends State<HomePage> {
           ),
             onPressed: (){
               if(selection[0]== false){
-                FirestoreHelper().register(mail.text, password.text, firstname.text, username.text).then((value) {
+                Consumer.register(mail.text, password.text, firstname.text, username.text).then((value) {
                   setState(() {
                     AppData.account = value;
                   });
@@ -188,7 +188,7 @@ class _MyHomePageState extends State<HomePage> {
               }
               else
                 {
-                  FirestoreHelper().connect(mail.text, password.text).then((value){
+                  Consumer.login(mail.text, password.text).then((value){
                     setState(() {
                       AppData.account = value;
                     });
