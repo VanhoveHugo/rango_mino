@@ -1,7 +1,7 @@
-import 'package:rango_mino/src/models/utilisateur.dart';
+import 'package:rango_mino/src/models/consumers.dart';
 
 class AppData {
-  static Utilisateur account = Utilisateur.empty();
+  static Consumer account = Consumer.empty();
 
   static const lorem =
       "Lorem Ipsum is simply dummy text of the printing and typesetting "
@@ -14,5 +14,5 @@ class AppData {
       "with desktop publishing software like Aldus PageMaker including versions "
       "of Lorem Ipsum.";
 
-  static String defaultImage = "https://www.auto-moto.com/wp-content/uploads/sites/9/2022/02/01-peugeot-208-750x410.jpg";
+  static String defaultImage = "https://i.etsystatic.com/14524542/r/il/9e937e/1232552885/il_570xN.1232552885_pi2i.jpg";
 }

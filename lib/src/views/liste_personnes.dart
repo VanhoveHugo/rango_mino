@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rango_mino/src/controllers/firestore.dart';
 import 'package:rango_mino/core/data.dart';
-import 'package:rango_mino/src/models/utilisateur.dart';
+import 'package:rango_mino/src/models/consumers.dart';
 
 class ListPersonn extends StatefulWidget {
   const ListPersonn({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _ListPersonnState extends State<ListPersonn> {
             return ListView.builder(
               itemCount: documents.length,
                 itemBuilder: (context,index) {
-                  Utilisateur otherUser = Utilisateur(documents[index]);
+                  Consumer otherUser = Consumer(documents[index]);
                   if (AppData.account.id == otherUser.id) {
                     return Container();
                   }
@@ -41,9 +41,9 @@ class _ListPersonnState extends State<ListPersonn> {
                         },
                         leading: CircleAvatar(
                           radius: 30,
-                          backgroundImage: NetworkImage(otherUser.avatar!),
+                          backgroundImage: NetworkImage(otherUser.picture!),
                         ),
-                        title: Text(otherUser.fullName),
+                        title: Text(otherUser.username),
                         subtitle: Text(otherUser.email),
                       ),
                     );

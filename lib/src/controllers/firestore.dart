@@ -2,15 +2,14 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:rango_mino/src/models/utilisateur.dart';
+import 'package:rango_mino/src/models/consumers.dart';
 
 class FirestoreHelper {
   final auth = FirebaseAuth.instance;
   final storage = FirebaseStorage.instance;
-  final cloudUsers = FirebaseFirestore.instance.collection("UTILISATEURS");
-  final cloudMessage = FirebaseFirestore.instance.collection("MESSAGES");
+  final cloudUsers = FirebaseFirestore.instance.collection("consumers");
 
-  Future<Utilisateur> inscription(String email, String password, String nom, String prenom) async {
+  Future<Consumer> register(String email, String password, String firstname, String username) async {
     UserCredential credential = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
     User? user = credential.user;
@@ -19,22 +18,24 @@ class FirestoreHelper {
     } else {
       String uid = user.uid;
       Map<String, dynamic> map = {
-        "NOM": nom,
-        "PRENOM": prenom,
-        "EMAIL": email,
-        "FAVORIS": []
+        "createdAt": DateTime.now().toString(),
+        "updatedAt": DateTime.now().toString(),
+        "lastLogin": DateTime.now().toString(),
+        "email": email,
+        "firstname": firstname,
+        "username": username,
       };
       addUser(uid, map);
       return getUser(uid);
     }
   }
 
-  Future<Utilisateur> getUser(String id) async {
+  Future<Consumer> getUser(String id) async {
     DocumentSnapshot snapshots = await cloudUsers.doc(id).get();
-    return Utilisateur(snapshots);
+    return Consumer(snapshots);
   }
 
-  Future<Utilisateur> Connect(String email, String password) async {
+  Future<Consumer> connect(String email, String password) async {
     UserCredential credential =
         await auth.signInWithEmailAndPassword(email: email, password: password);
     User? user = credential.user;

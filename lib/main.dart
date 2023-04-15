@@ -42,9 +42,9 @@ class HomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<HomePage> {
   TextEditingController mail = TextEditingController();
-  TextEditingController  password = TextEditingController();
-  TextEditingController  prenom = TextEditingController();
-  TextEditingController  nom = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController username = TextEditingController();
+  TextEditingController firstname = TextEditingController();
   List<bool> selection = [true,false];
 
   popUp(){
@@ -135,17 +135,17 @@ class _MyHomePageState extends State<HomePage> {
         const SizedBox(height:10),
 
         (selection[0] == false)?TextField(
-          controller: prenom,
+          controller: username,
           decoration: const InputDecoration(
-              hintText: "Entrer votre prénom"
+              hintText: "Entrer votre nom d'utilisateur"
           ),
         ):Container(),
         const SizedBox(height:10),
 
         (selection[0]==false)?TextField(
-          controller: nom,
+          controller: firstname,
           decoration: const InputDecoration(
-              hintText: "Entrer votre nom"
+              hintText: "Entrer votre prenom"
           ),
         ):Container(),
         const SizedBox(height:10),
@@ -173,7 +173,7 @@ class _MyHomePageState extends State<HomePage> {
           ),
             onPressed: (){
               if(selection[0]== false){
-                FirestoreHelper().inscription(mail.text, password.text, nom.text, prenom.text).then((value) {
+                FirestoreHelper().register(mail.text, password.text, firstname.text, username.text).then((value) {
                   setState(() {
                     AppData.account = value;
                   });
@@ -188,7 +188,7 @@ class _MyHomePageState extends State<HomePage> {
               }
               else
                 {
-                  FirestoreHelper().Connect(mail.text, password.text).then((value){
+                  FirestoreHelper().connect(mail.text, password.text).then((value){
                     setState(() {
                       AppData.account = value;
                     });

@@ -27,7 +27,7 @@ class _DashBoardViewState extends State<DashBoardView> {
         child : MyDrawer()
       ),
       appBar: AppBar(
-        title: Text(AppData.account.fullName),
+        title: Text(AppData.account.firstname),
       ),
       body : bodyPage(),
 
@@ -104,7 +104,7 @@ class MyDrawerState extends State<MyDrawer>{
                     "AVATAR": urlImage
                   };
                   setState(() {
-                    AppData.account.avatar = urlImage;
+                    AppData.account.picture = urlImage;
                   });
                   //mettre à jour les infos utilisateurs
                   FirestoreHelper().updateUser(AppData.account.id, data);
@@ -144,12 +144,12 @@ class MyDrawerState extends State<MyDrawer>{
             },
             child: CircleAvatar(
               radius: 60,
-              backgroundImage: NetworkImage(AppData.account.avatar!),
+              backgroundImage: NetworkImage(AppData.account.picture!),
             ),
           ),
 
-          Text(AppData.account.nickname ?? ""),
-          Text(AppData.account.fullName),
+          Text(AppData.account.username),
+          Text(AppData.account.firstname),
           Text(AppData.account.email)
         ]
       ),
