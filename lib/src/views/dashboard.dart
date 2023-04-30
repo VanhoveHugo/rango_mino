@@ -2,13 +2,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:rango_mino/src/models/consumers.dart';
-import 'package:rango_mino/src/views/liste_personnes.dart';
 import 'package:rango_mino/core/data.dart';
 
 class DashBoardView extends StatefulWidget {
   String mail;
-  String password;
-  DashBoardView({Key? key,required this.mail,required this.password}) : super(key: key);
+  DashBoardView({Key? key,required this.mail}) : super(key: key);
 
   @override
   State<DashBoardView> createState() => _DashBoardViewState();
@@ -41,16 +39,20 @@ class _DashBoardViewState extends State<DashBoardView> {
         },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-            label: "Personnes"
+              icon: Icon(Icons.home),
+            label: "Accueil"
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.ac_unit_outlined),
-            label: "Favoris"
+              icon: Icon(Icons.gas_meter_outlined),
+            label: "Conseils"
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.back_hand),
-              label: "Nouveau"
+              icon: Icon(Icons.local_hospital_outlined),
+            label: "Veterinaires"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.file_download),
+            label: "Documents"
           ),
         ],
       ),
@@ -67,9 +69,10 @@ class _DashBoardViewState extends State<DashBoardView> {
         });
       },
       children: const [
-        ListPersonn(),
-        Text("Deuxième page"),
-        Text("Troisème page"),
+        Text("1 page"),
+        Text("2 page"),
+        Text("3 page"),
+        Text("4 page"),
       ],
     );
   }
@@ -134,26 +137,27 @@ class MyDrawerState extends State<MyDrawer>{
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SafeArea(
+      child: Padding(
         padding: const EdgeInsets.all(15),
-      child: Column(
-        children : [
-          InkWell(
-            onTap: (){
-              popImage();
-            },
-            child: CircleAvatar(
-              radius: 60,
-              backgroundImage: NetworkImage(AppData.account.picture!),
+        child: Column(
+          children : [
+            InkWell(
+              onTap: (){
+                popImage();
+              },
+              child: CircleAvatar(
+                radius: 60,
+                backgroundImage: NetworkImage(AppData.account.picture!),
+              ),
             ),
-          ),
 
-          Text(AppData.account.username),
-          Text(AppData.account.firstname),
-          Text(AppData.account.email)
-        ]
+            Text(AppData.account.username),
+            Text(AppData.account.firstname),
+            Text(AppData.account.email)
+          ]
+        ),
       ),
     );
   }
-
 }
